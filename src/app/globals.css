@@ -1,0 +1,37 @@
+:root {
+  --bg-color: #0f1629; /* Deep dark blue background */
+  --panel-bg: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-color: #8b5cf6;
+  --accent-hover: #7c3aed;
+  --border-color: #334155;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
