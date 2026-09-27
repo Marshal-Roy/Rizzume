@@ -1,0 +1,136 @@
+.previewContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  min-height: 100%;
+}
+
+.toolbar {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.printBtn {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.printBtn:hover {
+  background-color: var(--accent-hover);
+}
+
+.resumePaper {
+  background-color: white;
+  color: black;
+  width: 100%;
+  max-width: 800px;
+  min-height: 1131px; /* A4 aspect ratio approximation */
+  padding: 3rem 4rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  font-family: 'Times New Roman', Times, serif; 
+  line-height: 1.5;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.name {
+  font-size: 24pt;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.contactInfo {
+  font-size: 10pt;
+  color: #555;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.contactInfo span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.sectionContent {
+  font-size: 11pt;
+  color: #000;
+}
+
+.sectionContent p {
+  margin-bottom: 0.5rem;
+}
+
+.entry {
+  margin-bottom: 1rem;
+}
+
+.entryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.25rem;
+}
+
+.entryTitleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.entryTitle {
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0;
+}
+
+.entrySubtitle {
+  font-size: 11pt;
+  font-style: italic;
+  color: #333;
+}
+
+.entryMeta {
+  text-align: right;
+  font-size: 11pt;
+  color: #333;
+}
+
+.bulletList {
+  padding-left: 1.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}
+
+.bulletList li {
+  margin-bottom: 0.25rem;
+}

@@ -8,6 +8,7 @@ import EducationForm from '@/components/forms/EducationForm';
 import SkillsForm from '@/components/forms/SkillsForm';
 import SummaryForm from '@/components/forms/SummaryForm';
 import Sidebar from '@/components/Sidebar';
+import ResumePreview from '@/components/ResumePreview';
 
 type Tab = 'CONTACT' | 'EXPERIENCE' | 'PROJECT' | 'EDUCATION' | 'SKILLS' | 'SUMMARY' | 'PREVIEW';
 
@@ -29,7 +30,7 @@ export default function Home() {
       case 'EDUCATION': return <EducationForm />;
       case 'SKILLS': return <SkillsForm />;
       case 'SUMMARY': return <SummaryForm />;
-      case 'PREVIEW': return <div style={{color: 'white', padding: '2rem'}}>Preview not implemented yet (Phase 5)</div>;
+      case 'PREVIEW': return <ResumePreview />;
       default: return null;
     }
   };
@@ -60,9 +61,9 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <Sidebar activeTab={activeTab} />
+        {activeTab !== 'PREVIEW' && <Sidebar activeTab={activeTab} />}
 
-        <section className={styles.content}>
+        <section className={styles.content} style={activeTab === 'PREVIEW' ? { padding: 0 } : {}}>
           {!mounted ? null : activeTab !== 'PREVIEW' ? (
             <div className={styles.formPanel}>
               {renderForm()}
