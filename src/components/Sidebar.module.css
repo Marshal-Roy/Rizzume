@@ -1,0 +1,168 @@
+.sidebar {
+  width: 320px;
+  padding: 2rem;
+  border-right: 1px solid var(--border-color);
+  background-color: var(--panel-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: auto;
+}
+
+.videoPlaceholder {
+  aspect-ratio: 16/9;
+  background-color: #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playIcon {
+  font-size: 2rem;
+  color: #64748b;
+}
+
+.scoreCard {
+  background-color: var(--bg-color);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.scoreCircle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid #eab308;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #eab308;
+}
+
+.scoreText {
+  display: flex;
+  flex-direction: column;
+}
+
+.scoreText strong {
+  font-size: 0.875rem;
+}
+
+.scoreText span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.sectionHeader h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.addBtn {
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.item {
+  padding: 0.75rem 1rem;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-color);
+}
+
+.itemContent h4 {
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.itemContent p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.itemMenu {
+  color: var(--text-secondary);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.toolsList {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toolItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  padding: 0.5rem 0;
+}
+
+.toolIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ef4444; /* Red cross placeholder */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+}
+
+.proBadge {
+  font-size: 0.6rem;
+  background-color: rgba(255,255,255,0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  margin-left: auto;
+}
