@@ -7,6 +7,7 @@ import ProjectForm from '@/components/forms/ProjectForm';
 import EducationForm from '@/components/forms/EducationForm';
 import SkillsForm from '@/components/forms/SkillsForm';
 import SummaryForm from '@/components/forms/SummaryForm';
+import Sidebar from '@/components/Sidebar';
 
 type Tab = 'CONTACT' | 'EXPERIENCE' | 'PROJECT' | 'EDUCATION' | 'SKILLS' | 'SUMMARY' | 'PREVIEW';
 
@@ -59,18 +60,7 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <aside className={styles.sidebar}>
-          <div className={styles.videoPlaceholder}>
-            <span className={styles.playIcon}>▶</span>
-          </div>
-          <div className={styles.scoreCard}>
-            <div className={styles.scoreCircle}>73</div>
-            <div className={styles.scoreText}>
-              <strong>Your Rezi Score</strong>
-              <span>Needs improvement</span>
-            </div>
-          </div>
-        </aside>
+        <Sidebar activeTab={activeTab} />
 
         <section className={styles.content}>
           {!mounted ? null : activeTab !== 'PREVIEW' ? (
