@@ -35,3 +35,53 @@ button {
 input, textarea, select {
   font-family: inherit;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+@media print {
+  /* Hide all UI elements */
+  body * {
+    visibility: hidden;
+  }
+  
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+    background-color: white !important;
+  }
+  
+  /* Show only the resume paper */
+  #resume-document, #resume-document * {
+    visibility: visible;
+  }
+  
+  #resume-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background-color: white;
+  }
+  
+  /* Reset margins for printing */
+  @page {
+    margin: 0.5in;
+  }
+}
