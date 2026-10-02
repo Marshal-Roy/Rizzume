@@ -4,9 +4,10 @@ import { useResumeStore, Project } from '@/store/useResumeStore';
 import styles from './forms.module.css';
 
 export default function ProjectForm() {
-  const { data, addProject, updateProject, removeProject } = useResumeStore();
+  const { data, addProject, updateProject, removeProject, reorderProject } = useResumeStore();
   
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
   const [form, setForm] = useState<Partial<Project>>({
     title: '', subtitle: '', description: []
   });
@@ -93,8 +94,29 @@ export default function ProjectForm() {
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.sectionTitle}>PROJECTS</h2>
-      {data.projects.map(proj => (
-        <div key={proj.id} className={styles.listItem}>
+      {data.projects.map((proj, idx) => (
+        <div 
+          key={proj.id} 
+          className={styles.listItem}
+          draggable
+          onDragStart={(e) => {
+            setDraggedIdx(idx);
+            e.dataTransfer.effectAllowed = 'move';
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            if (draggedIdx !== null && draggedIdx !== idx) {
+              reorderProject(draggedIdx, idx);
+            }
+            setDraggedIdx(null);
+          }}
+          style={{ opacity: draggedIdx === idx ? 0.5 : 1 }}
+        >
+          <div className={styles.dragHandle}>☰</div>
           <div className={styles.itemDetails}>
             <h3>{proj.title}</h3>
             <p>{proj.subtitle}</p>

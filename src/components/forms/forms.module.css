@@ -84,6 +84,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+}
+
+.dragHandle {
+  cursor: grab;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  margin-left: -0.5rem;
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
+.itemDetails {
+  flex: 1;
 }
 
 .itemDetails h3 {
