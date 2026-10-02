@@ -4,9 +4,10 @@ import { useResumeStore, Education } from '@/store/useResumeStore';
 import styles from './forms.module.css';
 
 export default function EducationForm() {
-  const { data, addEducation, updateEducation, removeEducation } = useResumeStore();
+  const { data, addEducation, updateEducation, removeEducation, reorderEducation } = useResumeStore();
   
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
   const [form, setForm] = useState<Partial<Education>>({
     degree: '', school: '', location: '', date: '', minor: '', gpa: '', additionalInfo: ''
   });
@@ -85,8 +86,29 @@ export default function EducationForm() {
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.sectionTitle}>EDUCATION</h2>
-      {data.education.map(edu => (
-        <div key={edu.id} className={styles.listItem}>
+      {data.education.map((edu, idx) => (
+        <div 
+          key={edu.id} 
+          className={styles.listItem}
+          draggable
+          onDragStart={(e) => {
+            setDraggedIdx(idx);
+            e.dataTransfer.effectAllowed = 'move';
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            if (draggedIdx !== null && draggedIdx !== idx) {
+              reorderEducation(draggedIdx, idx);
+            }
+            setDraggedIdx(null);
+          }}
+          style={{ opacity: draggedIdx === idx ? 0.5 : 1 }}
+        >
+          <div className={styles.dragHandle}>☰</div>
           <div className={styles.itemDetails}>
             <h3>{edu.degree}</h3>
             <p>{edu.school} • {edu.date}</p>

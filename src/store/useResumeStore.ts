@@ -57,14 +57,17 @@ interface ResumeStore {
   addExperience: (exp: Experience) => void;
   updateExperience: (id: string, exp: Partial<Experience>) => void;
   removeExperience: (id: string) => void;
+  reorderExperience: (startIndex: number, endIndex: number) => void;
 
   addEducation: (edu: Education) => void;
   updateEducation: (id: string, edu: Partial<Education>) => void;
   removeEducation: (id: string) => void;
+  reorderEducation: (startIndex: number, endIndex: number) => void;
 
   addProject: (proj: Project) => void;
   updateProject: (id: string, proj: Partial<Project>) => void;
   removeProject: (id: string) => void;
+  reorderProject: (startIndex: number, endIndex: number) => void;
 
   updateSkills: (skills: string) => void;
 }
@@ -101,7 +104,7 @@ export const useResumeStore = create<ResumeStore>()(
       })),
 
       addExperience: (exp) => set((state) => ({
-        data: { ...state.data, experience: [...state.data.experience, exp] }
+        data: { ...state.data, experience: [exp, ...state.data.experience] }
       })),
       updateExperience: (id, expUpdate) => set((state) => ({
         data: { 
@@ -115,9 +118,15 @@ export const useResumeStore = create<ResumeStore>()(
           experience: state.data.experience.filter(e => e.id !== id)
         }
       })),
+      reorderExperience: (startIndex, endIndex) => set((state) => {
+        const result = Array.from(state.data.experience);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return { data: { ...state.data, experience: result } };
+      }),
 
       addEducation: (edu) => set((state) => ({
-        data: { ...state.data, education: [...state.data.education, edu] }
+        data: { ...state.data, education: [edu, ...state.data.education] }
       })),
       updateEducation: (id, eduUpdate) => set((state) => ({
         data: { 
@@ -131,9 +140,15 @@ export const useResumeStore = create<ResumeStore>()(
           education: state.data.education.filter(e => e.id !== id)
         }
       })),
+      reorderEducation: (startIndex, endIndex) => set((state) => {
+        const result = Array.from(state.data.education);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return { data: { ...state.data, education: result } };
+      }),
 
       addProject: (proj) => set((state) => ({
-        data: { ...state.data, projects: [...state.data.projects, proj] }
+        data: { ...state.data, projects: [proj, ...state.data.projects] }
       })),
       updateProject: (id, projUpdate) => set((state) => ({
         data: { 
@@ -147,6 +162,12 @@ export const useResumeStore = create<ResumeStore>()(
           projects: state.data.projects.filter(p => p.id !== id)
         }
       })),
+      reorderProject: (startIndex, endIndex) => set((state) => {
+        const result = Array.from(state.data.projects);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return { data: { ...state.data, projects: result } };
+      }),
 
       updateSkills: (skills) => set((state) => ({
         data: { ...state.data, skills }

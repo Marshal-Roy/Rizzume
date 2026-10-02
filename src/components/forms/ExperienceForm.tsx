@@ -4,9 +4,10 @@ import { useResumeStore, Experience } from '@/store/useResumeStore';
 import styles from './forms.module.css';
 
 export default function ExperienceForm() {
-  const { data, addExperience, updateExperience, removeExperience } = useResumeStore();
+  const { data, addExperience, updateExperience, removeExperience, reorderExperience } = useResumeStore();
   
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
   const [form, setForm] = useState<Partial<Experience>>({
     role: '', company: '', startDate: '', endDate: '', location: '', description: []
   });
@@ -109,8 +110,29 @@ export default function ExperienceForm() {
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.sectionTitle}>EXPERIENCE</h2>
-      {data.experience.map(exp => (
-        <div key={exp.id} className={styles.listItem}>
+      {data.experience.map((exp, idx) => (
+        <div 
+          key={exp.id} 
+          className={styles.listItem}
+          draggable
+          onDragStart={(e) => {
+            setDraggedIdx(idx);
+            e.dataTransfer.effectAllowed = 'move';
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            if (draggedIdx !== null && draggedIdx !== idx) {
+              reorderExperience(draggedIdx, idx);
+            }
+            setDraggedIdx(null);
+          }}
+          style={{ opacity: draggedIdx === idx ? 0.5 : 1 }}
+        >
+          <div className={styles.dragHandle}>☰</div>
           <div className={styles.itemDetails}>
             <h3>{exp.role}</h3>
             <p>{exp.company} • {exp.startDate} - {exp.endDate}</p>
