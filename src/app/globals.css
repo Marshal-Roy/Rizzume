@@ -53,35 +53,33 @@ input, textarea, select {
 }
 
 @media print {
-  /* Hide all UI elements */
-  body * {
-    visibility: hidden;
+  @page {
+    margin: 0; /* Forces browser to hide date/URL watermarks */
+    size: A4;
   }
-  
+
   html, body {
     height: auto !important;
+    background: white !important;
     overflow: visible !important;
-    background-color: white !important;
   }
-  
-  /* Show only the resume paper */
-  #resume-document, #resume-document * {
-    visibility: visible;
+
+  /* Hide app navigation and sidebar completely during print */
+  header, aside {
+    display: none !important;
   }
-  
-  #resume-document {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
-    background-color: white;
+
+  /* Ensure main layout container expands fully */
+  main {
+    display: block !important;
+    flex: none !important;
+    height: auto !important;
+    overflow: visible !important;
   }
-  
-  /* Reset margins for printing */
-  @page {
-    margin: 0.5in;
+
+  section[class*="content"] {
+    padding: 0 !important;
+    background: white !important;
+    overflow: visible !important;
   }
 }
