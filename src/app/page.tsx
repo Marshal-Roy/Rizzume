@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './page.module.css';
 import ContactForm from '@/components/forms/ContactForm';
 import ExperienceForm from '@/components/forms/ExperienceForm';
@@ -17,10 +17,20 @@ const TABS: Tab[] = ['CONTACT', 'EXPERIENCE', 'PROJECT', 'EDUCATION', 'SKILLS', 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>('SUMMARY');
   const [mounted, setMounted] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Ensure active tab is smoothly scrolled into view on smaller screens
+  useEffect(() => {
+    if (!navRef.current) return;
+    const activeBtn = navRef.current.querySelector(`.${styles.active}`) as HTMLElement | null;
+    if (activeBtn) {
+      activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+    }
+  }, [activeTab]);
 
   const renderForm = () => {
     switch (activeTab) {
@@ -38,16 +48,18 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.nav}>
-          {TABS.map(tab => (
-            <button 
-              key={tab}
-              className={`${styles.navItem} ${activeTab === tab ? styles.active : ''}`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
+        <div className={styles.navContainer}>
+          <div className={styles.nav} ref={navRef}>
+            {TABS.map(tab => (
+              <button 
+                key={tab}
+                className={`${styles.navItem} ${activeTab === tab ? styles.active : ''}`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
         </div>
         <div className={styles.actions}>
           <button 

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  min-height: 100vh;
 }
 
 .header {
@@ -11,11 +12,56 @@
   padding: 1rem 2rem;
   background-color: #0d1117; /* Darkest for header */
   border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+  gap: 1.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0; /* Critical: allows flex child to shrink and enable overflow-x scroll */
+  position: relative;
 }
 
 .nav {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: 100%;
+  min-width: 0;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  padding-bottom: 6px;
+  margin-bottom: -2px;
+
+  /* Visible styled horizontal scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) rgba(255, 255, 255, 0.08);
+}
+
+.nav::-webkit-scrollbar {
+  height: 5px;
+}
+
+.nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+.nav::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 4px;
+}
+
+.nav::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
 }
 
 .navItem {
@@ -26,10 +72,15 @@
   border-radius: 4px;
   transition: all 0.2s;
   letter-spacing: 0.05em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
+  scroll-snap-align: start;
 }
 
 .navItem:hover {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .navItem.active {
@@ -39,7 +90,9 @@
 
 .actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .previewBtn, .aiBtn {
@@ -50,71 +103,28 @@
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   background-color: transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.previewBtn:hover, .aiBtn:hover {
+  border-color: var(--accent-color);
+  color: white;
+  background-color: rgba(139, 92, 246, 0.08);
+}
+
+.previewBtn.active {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
 }
 
 .main {
   display: flex;
   flex: 1;
   overflow: hidden;
-}
-
-.sidebar {
-  width: 320px;
-  padding: 2rem;
-  border-right: 1px solid var(--border-color);
-  background-color: var(--panel-bg);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.videoPlaceholder {
-  aspect-ratio: 16/9;
-  background-color: #e2e8f0;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.playIcon {
-  font-size: 2rem;
-  color: #64748b;
-}
-
-.scoreCard {
-  background-color: var(--bg-color);
-  padding: 1rem;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.scoreCircle {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 3px solid #eab308;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #eab308;
-}
-
-.scoreText {
-  display: flex;
-  flex-direction: column;
-}
-
-.scoreText strong {
-  font-size: 0.875rem;
-}
-
-.scoreText span {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
+  position: relative;
 }
 
 .content {
@@ -122,6 +132,7 @@
   padding: 2rem;
   background-color: var(--bg-color);
   overflow-y: auto;
+  min-width: 0;
 }
 
 .formPanel {
@@ -131,6 +142,8 @@
   padding: 2rem;
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .formPanel h2 {
@@ -138,6 +151,7 @@
   color: var(--text-primary);
   margin-bottom: 1rem;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .textarea {
@@ -175,4 +189,83 @@
 
 .saveBtn:hover {
   background-color: #a78bfa;
+}
+
+/* ─── Tablet Responsiveness (769px - 1024px) ─── */
+@media (max-width: 1024px) {
+  .header {
+    padding: 0.875rem 1.25rem;
+    gap: 1rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+
+  .formPanel {
+    padding: 1.5rem;
+  }
+}
+
+/* ─── Mobile / Narrow Screens (<= 850px) ─── */
+@media (max-width: 850px) {
+  .header {
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .navContainer {
+    width: 100%;
+  }
+
+  .nav {
+    width: 100%;
+    padding-bottom: 6px;
+  }
+
+  .actions {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .previewBtn, .aiBtn {
+    flex: 1;
+    text-align: center;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ─── Mobile Responsiveness (<= 768px) ─── */
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .navItem {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.75rem;
+  }
+
+  .main {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .content {
+    order: 1;
+    padding: 1rem 0.75rem;
+    overflow-y: visible;
+    height: auto;
+  }
+
+  .formPanel {
+    padding: 1.25rem 0.875rem;
+    border-radius: 6px;
+  }
 }
