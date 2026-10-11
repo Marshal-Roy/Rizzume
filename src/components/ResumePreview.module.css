@@ -6,13 +6,45 @@
   padding: 2rem;
   background-color: var(--bg-color);
   min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .toolbar {
   width: 100%;
   max-width: 210mm;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.viewControls {
+  display: flex;
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.viewBtn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.viewBtn:hover {
+  color: var(--text-primary);
+}
+
+.viewBtn.active {
+  background-color: var(--accent-color);
+  color: white;
 }
 
 .printBtn {
@@ -24,10 +56,24 @@
   font-size: 0.875rem;
   transition: background-color 0.2s;
   box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .printBtn:hover {
   background-color: var(--accent-hover);
+}
+
+.paperWrapper {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 0 2rem 0;
 }
 
 /* ─── Paper ─── */
@@ -42,9 +88,11 @@
   font-size: 10.5pt;
   line-height: 1.45;
   position: relative;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
-/* Marker placed OUTSIDE the paper */
+/* Marker placed OUTSIDE the paper on desktop */
 .pageMarker {
   position: absolute;
   left: -130px;
@@ -218,6 +266,47 @@
   color: #111;
 }
 
+/* ─── Responsive Styles ─── */
+@media (max-width: 900px) {
+  .previewContainer {
+    padding: 1rem 0.5rem;
+    gap: 1rem;
+  }
+
+  .toolbar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .viewControls {
+    justify-content: center;
+  }
+
+  .viewBtn {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .printBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  /* When screen is narrow, position page marker across the page */
+  .pageMarker {
+    left: 0;
+    width: 100%;
+    text-align: right;
+    padding-right: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+  }
+}
+
 /* ─── Print ─── */
 @media print {
   .previewContainer {
@@ -225,8 +314,16 @@
     padding: 0 !important;
   }
 
-  .toolbar {
+  .toolbar, .viewControls {
     display: none !important;
+  }
+
+  .paperWrapper {
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    display: block !important;
+    padding: 0 !important;
   }
 
   .resumePaper {
@@ -235,6 +332,7 @@
     padding: 0 18mm !important; /* ONLY horizontal padding. Vertical handled by thead/tfoot */
     box-shadow: none !important;
     margin: 0 !important;
+    transform: none !important;
   }
 
   .pageMarker {
