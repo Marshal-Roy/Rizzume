@@ -69,7 +69,7 @@ export default function Sidebar({ activeTab }: SidebarProps) {
                 <div key={proj.id} className={styles.item}>
                   <div className={styles.itemContent}>
                     <h4>{proj.title || 'New Project'}</h4>
-                    <p>{proj.subtitle}</p>
+                    <p>{proj.subtitle || proj.link || 'New Project'}</p>
                   </div>
                   <div className={styles.itemMenu}>•••</div>
                 </div>
