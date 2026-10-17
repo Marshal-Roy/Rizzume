@@ -9,7 +9,7 @@ export default function ProjectForm() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
   const [form, setForm] = useState<Partial<Project>>({
-    title: '', subtitle: '', description: []
+    title: '', subtitle: '', startDate: '', endDate: '', link: '', description: []
   });
   const [bulletPoint, setBulletPoint] = useState('');
 
@@ -19,7 +19,7 @@ export default function ProjectForm() {
   };
 
   const handleAddNew = () => {
-    setForm({ title: '', subtitle: '', description: [] });
+    setForm({ title: '', subtitle: '', startDate: '', endDate: '', link: '', description: [] });
     setEditingId('new');
   };
 
@@ -48,12 +48,28 @@ export default function ProjectForm() {
         
         <div className={styles.formGroup}>
           <label className={styles.label}>PROJECT TITLE</label>
-          <input className={styles.input} value={form.title} onChange={(e) => setForm({...form, title: e.target.value})} />
+          <input className={styles.input} value={form.title || ''} onChange={(e) => setForm({...form, title: e.target.value})} placeholder="e.g. E-Commerce Platform" />
         </div>
 
         <div className={styles.formGroup}>
           <label className={styles.label}>SUBTITLE (e.g., Company or Tech Stack)</label>
-          <input className={styles.input} value={form.subtitle} onChange={(e) => setForm({...form, subtitle: e.target.value})} />
+          <input className={styles.input} value={form.subtitle || ''} onChange={(e) => setForm({...form, subtitle: e.target.value})} placeholder="e.g. Next.js, TypeScript, PostgreSQL" />
+        </div>
+
+        <div className={styles.row}>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>START DATE (Optional)</label>
+            <input className={styles.input} value={form.startDate || ''} onChange={(e) => setForm({...form, startDate: e.target.value})} placeholder="e.g. March 2025" />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>END DATE (Optional)</label>
+            <input className={styles.input} value={form.endDate || ''} onChange={(e) => setForm({...form, endDate: e.target.value})} placeholder="e.g. May 2025 or Present" />
+          </div>
+        </div>
+
+        <div className={styles.formGroup}>
+          <label className={styles.label}>PROJECT LINK / URL</label>
+          <input className={styles.input} value={form.link || ''} onChange={(e) => setForm({...form, link: e.target.value})} placeholder="e.g. https://github.com/username/project or live demo URL" />
         </div>
 
         <div className={styles.formGroup}>
@@ -119,7 +135,10 @@ export default function ProjectForm() {
           <div className={styles.dragHandle}>☰</div>
           <div className={styles.itemDetails}>
             <h3>{proj.title}</h3>
-            <p>{proj.subtitle}</p>
+            <p>
+              {proj.subtitle}
+              {proj.link ? (proj.subtitle ? ` • ${proj.link}` : proj.link) : ''}
+            </p>
           </div>
           <div className={styles.itemActions}>
             <button className={styles.editBtn} onClick={() => handleEdit(proj)}>Edit</button>

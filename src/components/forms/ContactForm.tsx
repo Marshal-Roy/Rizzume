@@ -17,44 +17,51 @@ export default function ContactForm() {
       <div className={styles.row}>
         <div className={styles.formGroup}>
           <label className={styles.label}>FULL NAME</label>
-          <input className={styles.input} name="fullName" value={contact.fullName} onChange={handleChange} />
+          <input className={styles.input} name="fullName" value={contact.fullName || ''} onChange={handleChange} placeholder="e.g. John Doe" />
         </div>
         <div className={styles.formGroup}>
           <label className={styles.label}>EMAIL ADDRESS</label>
-          <input className={styles.input} name="email" type="email" value={contact.email} onChange={handleChange} />
+          <input className={styles.input} name="email" type="email" value={contact.email || ''} onChange={handleChange} placeholder="e.g. john@example.com" />
         </div>
       </div>
 
       <div className={styles.row}>
         <div className={styles.formGroup}>
           <label className={styles.label}>PHONE NUMBER</label>
-          <input className={styles.input} name="phone" value={contact.phone} onChange={handleChange} />
+          <input className={styles.input} name="phone" value={contact.phone || ''} onChange={handleChange} placeholder="e.g. +1 234 567 8900" />
         </div>
         <div className={styles.formGroup}>
           <label className={styles.label}>LINKEDIN URL</label>
-          <input className={styles.input} name="linkedin" value={contact.linkedin} onChange={handleChange} />
+          <input className={styles.input} name="linkedin" value={contact.linkedin || ''} onChange={handleChange} placeholder="e.g. linkedin.com/in/username" />
         </div>
       </div>
 
       <div className={styles.row}>
+        <div className={styles.formGroup}>
+          <label className={styles.label}>GITHUB URL</label>
+          <input className={styles.input} name="github" value={contact.github || ''} onChange={handleChange} placeholder="e.g. github.com/username" />
+        </div>
         <div className={styles.formGroup}>
           <label className={styles.label}>PERSONAL WEBSITE OR RELEVANT LINK</label>
-          <input className={styles.input} name="website" value={contact.website} onChange={handleChange} />
-        </div>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>COUNTRY</label>
-          <input className={styles.input} name="country" value={contact.country} onChange={handleChange} />
+          <input className={styles.input} name="website" value={contact.website || ''} onChange={handleChange} placeholder="e.g. portfolio.com" />
         </div>
       </div>
 
       <div className={styles.row}>
         <div className={styles.formGroup}>
-          <label className={styles.label}>STATE</label>
-          <input className={styles.input} name="state" value={contact.state} onChange={handleChange} />
+          <label className={styles.label}>COUNTRY</label>
+          <input className={styles.input} name="country" value={contact.country || ''} onChange={handleChange} placeholder="e.g. United States" />
         </div>
         <div className={styles.formGroup}>
+          <label className={styles.label}>STATE</label>
+          <input className={styles.input} name="state" value={contact.state || ''} onChange={handleChange} placeholder="e.g. California" />
+        </div>
+      </div>
+
+      <div className={styles.row}>
+        <div className={styles.formGroup}>
           <label className={styles.label}>CITY</label>
-          <input className={styles.input} name="city" value={contact.city} onChange={handleChange} />
+          <input className={styles.input} name="city" value={contact.city || ''} onChange={handleChange} placeholder="e.g. San Francisco" />
         </div>
       </div>
 

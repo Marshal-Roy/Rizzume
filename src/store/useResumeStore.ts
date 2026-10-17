@@ -6,6 +6,7 @@ export interface ContactInfo {
   email: string;
   phone: string;
   linkedin: string;
+  github?: string;
   website: string;
   country: string;
   state: string;
@@ -37,6 +38,9 @@ export interface Project {
   id: string;
   title: string;
   subtitle: string;
+  startDate?: string;
+  endDate?: string;
+  link?: string;
   description: string[];
 }
 
@@ -78,6 +82,7 @@ const initialData: ResumeData = {
     email: '',
     phone: '',
     linkedin: '',
+    github: '',
     website: '',
     country: '',
     state: '',
