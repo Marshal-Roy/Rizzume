@@ -7,12 +7,13 @@ import ProjectForm from '@/components/forms/ProjectForm';
 import EducationForm from '@/components/forms/EducationForm';
 import SkillsForm from '@/components/forms/SkillsForm';
 import SummaryForm from '@/components/forms/SummaryForm';
+import CertificatesForm from '@/components/forms/CertificatesForm';
 import Sidebar from '@/components/Sidebar';
 import ResumePreview from '@/components/ResumePreview';
 
-type Tab = 'CONTACT' | 'EXPERIENCE' | 'PROJECT' | 'EDUCATION' | 'SKILLS' | 'SUMMARY' | 'PREVIEW';
+type Tab = 'SUMMARY' | 'CONTACT' | 'EXPERIENCE' | 'PROJECT' | 'EDUCATION' | 'SKILLS' | 'CERTIFICATES' | 'PREVIEW';
 
-const TABS: Tab[] = ['CONTACT', 'EXPERIENCE', 'PROJECT', 'EDUCATION', 'SKILLS', 'SUMMARY'];
+const TABS: Tab[] = ['SUMMARY', 'CONTACT', 'EXPERIENCE', 'PROJECT', 'EDUCATION', 'SKILLS', 'CERTIFICATES'];
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>('SUMMARY');
@@ -34,12 +35,13 @@ export default function Home() {
 
   const renderForm = () => {
     switch (activeTab) {
+      case 'SUMMARY': return <SummaryForm />;
       case 'CONTACT': return <ContactForm />;
       case 'EXPERIENCE': return <ExperienceForm />;
       case 'PROJECT': return <ProjectForm />;
       case 'EDUCATION': return <EducationForm />;
       case 'SKILLS': return <SkillsForm />;
-      case 'SUMMARY': return <SummaryForm />;
+      case 'CERTIFICATES': return <CertificatesForm />;
       case 'PREVIEW': return <ResumePreview />;
       default: return null;
     }
