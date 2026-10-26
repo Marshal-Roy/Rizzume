@@ -202,7 +202,7 @@ function ExternalLinkIcon() {
 
 export default function ResumePreview() {
   const { data } = useResumeStore();
-  const { contact, summary, experience, projects, education, skills } = data;
+  const { contact, summary, experience, projects, education, skills, certificates = [] } = data;
   const contentRef = useRef<HTMLDivElement>(null);
   const [pageBreaks, setPageBreaks] = useState<number[]>([]);
 
@@ -590,6 +590,49 @@ export default function ResumePreview() {
                       <h2 className={styles.sectionTitle}>Skills</h2>
                       <div className={styles.sectionContent}>
                         <p>{skills}</p>
+                      </div>
+                    </section>
+                  )}
+
+                  {/* ── Certificates ── */}
+                  {certificates && certificates.length > 0 && (
+                    <section className={styles.section}>
+                      <h2 className={styles.sectionTitle}>Certificates</h2>
+                      <div className={styles.sectionContent}>
+                        {certificates.map((cert) => (
+                          <div key={cert.id} className={styles.entry}>
+                            <div className={styles.entryTopRow}>
+                              <h3 className={styles.entryTitle}>
+                                {cert.link ? (
+                                  <a
+                                    href={formatUrl(cert.link)}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={styles.projectLink}
+                                  >
+                                    <span>{cert.name}</span>
+                                    <ExternalLinkIcon />
+                                  </a>
+                                ) : (
+                                  cert.name
+                                )}
+                              </h3>
+                              {cert.year && (
+                                <span className={styles.eduDate}>
+                                  {formatSingleDate(cert.year)}
+                                </span>
+                              )}
+                            </div>
+                            {(cert.issuer || cert.additionalInfo) && (
+                              <div className={styles.eduRow}>
+                                {cert.issuer && <span className={styles.eduSchool}>{cert.issuer}</span>}
+                                {cert.additionalInfo && (
+                                  <span className={styles.eduDate}>{cert.additionalInfo}</span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     </section>
                   )}

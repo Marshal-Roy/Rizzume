@@ -97,6 +97,26 @@ export default function Sidebar({ activeTab }: SidebarProps) {
             </div>
           </>
         );
+      case 'CERTIFICATES':
+        return (
+          <>
+            <div className={styles.sectionHeader}>
+              <h3>▼ Certificates</h3>
+              <button className={styles.addBtn}>+</button>
+            </div>
+            <div className={styles.itemList}>
+              {(data.certificates || []).map(cert => (
+                <div key={cert.id} className={styles.item}>
+                  <div className={styles.itemContent}>
+                    <h4>{cert.name || 'New Certificate'}</h4>
+                    <p>{cert.issuer ? `${cert.issuer} • ` : ''}{cert.year}</p>
+                  </div>
+                  <div className={styles.itemMenu}>•••</div>
+                </div>
+              ))}
+            </div>
+          </>
+        );
       default:
         return null;
     }

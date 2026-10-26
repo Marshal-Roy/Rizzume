@@ -44,6 +44,15 @@ export interface Project {
   description: string[];
 }
 
+export interface Certificate {
+  id: string;
+  name: string;
+  year: string;
+  issuer?: string;
+  link?: string;
+  additionalInfo?: string;
+}
+
 export interface ResumeData {
   contact: ContactInfo;
   summary: string;
@@ -51,6 +60,7 @@ export interface ResumeData {
   education: Education[];
   projects: Project[];
   skills: string; // The screenshot shows a comma-separated string for skills
+  certificates?: Certificate[];
 }
 
 interface ResumeStore {
@@ -74,6 +84,11 @@ interface ResumeStore {
   reorderProject: (startIndex: number, endIndex: number) => void;
 
   updateSkills: (skills: string) => void;
+
+  addCertificate: (cert: Certificate) => void;
+  updateCertificate: (id: string, cert: Partial<Certificate>) => void;
+  removeCertificate: (id: string) => void;
+  reorderCertificates: (startIndex: number, endIndex: number) => void;
 }
 
 const initialData: ResumeData = {
@@ -93,6 +108,7 @@ const initialData: ResumeData = {
   education: [],
   projects: [],
   skills: '',
+  certificates: [],
 };
 
 export const useResumeStore = create<ResumeStore>()(
@@ -177,6 +193,28 @@ export const useResumeStore = create<ResumeStore>()(
       updateSkills: (skills) => set((state) => ({
         data: { ...state.data, skills }
       })),
+
+      addCertificate: (cert) => set((state) => ({
+        data: { ...state.data, certificates: [cert, ...(state.data.certificates || [])] }
+      })),
+      updateCertificate: (id, certUpdate) => set((state) => ({
+        data: { 
+          ...state.data, 
+          certificates: (state.data.certificates || []).map(c => c.id === id ? { ...c, ...certUpdate } : c)
+        }
+      })),
+      removeCertificate: (id) => set((state) => ({
+        data: {
+          ...state.data,
+          certificates: (state.data.certificates || []).filter(c => c.id !== id)
+        }
+      })),
+      reorderCertificates: (startIndex, endIndex) => set((state) => {
+        const result = Array.from(state.data.certificates || []);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return { data: { ...state.data, certificates: result } };
+      }),
     }),
     {
       name: 'resume-storage', // key in localStorage
