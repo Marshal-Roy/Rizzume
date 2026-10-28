@@ -61,6 +61,7 @@ export interface ResumeData {
   projects: Project[];
   skills: string; // The screenshot shows a comma-separated string for skills
   certificates?: Certificate[];
+  selectedTemplate?: string;
 }
 
 interface ResumeStore {
@@ -89,6 +90,8 @@ interface ResumeStore {
   updateCertificate: (id: string, cert: Partial<Certificate>) => void;
   removeCertificate: (id: string) => void;
   reorderCertificates: (startIndex: number, endIndex: number) => void;
+
+  setSelectedTemplate: (templateId: string) => void;
 }
 
 const initialData: ResumeData = {
@@ -109,6 +112,7 @@ const initialData: ResumeData = {
   projects: [],
   skills: '',
   certificates: [],
+  selectedTemplate: 'classic-ats',
 };
 
 export const useResumeStore = create<ResumeStore>()(
@@ -215,6 +219,10 @@ export const useResumeStore = create<ResumeStore>()(
         result.splice(endIndex, 0, removed);
         return { data: { ...state.data, certificates: result } };
       }),
+
+      setSelectedTemplate: (templateId) => set((state) => ({
+        data: { ...state.data, selectedTemplate: templateId }
+      })),
     }),
     {
       name: 'resume-storage', // key in localStorage
